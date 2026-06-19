@@ -1,0 +1,7 @@
+[project]
+name = "osrs-npc-scraper"
+version = "0.1.0"
+description = "Tool to scrape OSRS Wiki NPC pages."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
