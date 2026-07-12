@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 from osrs_npc_scraper.scraper.crawler import extract_next_page, extract_npc_list
 
+
 @pytest.mark.crawler
 def test_extract_next_page(test_category_page, test_base_url):
     soup = BeautifulSoup(test_category_page, features="html.parser")
@@ -13,6 +14,7 @@ def test_extract_next_page(test_category_page, test_base_url):
         == test_base_url
         + "/w/Category:Non-player_characters?pagefrom=Beigarth#mw-pages"
     )
+
 
 @pytest.mark.crawler
 def test_extract_npc_list(test_category_page, test_base_url):

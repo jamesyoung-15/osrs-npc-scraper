@@ -23,6 +23,7 @@ def timeout_transport(request: httpx.Request):
     """Mock transport that raises HTTPX timeout exception"""
     raise httpx.TimeoutException("timed out", request=request)
 
+
 @pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page():
@@ -50,6 +51,7 @@ async def test_fetch_page_not_found():
             )
         assert exc_info.value.reason == FetchFailureReason.NOT_FOUND
 
+
 @pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_rate_limited():
@@ -62,6 +64,7 @@ async def test_fetch_page_rate_limited():
                 url="https://oldschool.runescape.wiki/w/Category:Non-player_characters",
             )
         assert exc_info.value.reason == FetchFailureReason.RATE_LIMITED
+
 
 @pytest.mark.fetcher
 @pytest.mark.asyncio
@@ -76,6 +79,7 @@ async def test_fetch_page_forbidden():
             )
         assert exc_info.value.reason == FetchFailureReason.FORBIDDEN
 
+
 @pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_bad_request():
@@ -88,6 +92,7 @@ async def test_fetch_page_bad_request():
                 url="https://oldschool.runescape.wiki/w/Category:Non-player_characters",
             )
         assert exc_info.value.reason == FetchFailureReason.BAD_REQUEST
+
 
 @pytest.mark.fetcher
 @pytest.mark.asyncio
@@ -102,6 +107,7 @@ async def test_fetch_page_request_timeout():
             )
     assert exc_info.value.reason == FetchFailureReason.REQUEST_TIMEOUT
 
+
 @pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_httpx_timeout():
@@ -115,6 +121,7 @@ async def test_fetch_page_httpx_timeout():
             )
     assert exc_info.value.reason == FetchFailureReason.HTTPX_TIMEOUT
 
+
 @pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_unknown():
@@ -127,6 +134,7 @@ async def test_fetch_page_unknown():
                 url="https://oldschool.runescape.wiki/w/Category:Non-player_characters",
             )
         assert exc_info.value.reason == FetchFailureReason.UNKNOWN
+
 
 @pytest.mark.fetcher
 @pytest.mark.asyncio
