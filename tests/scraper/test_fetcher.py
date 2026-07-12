@@ -23,7 +23,7 @@ def timeout_transport(request: httpx.Request):
     """Mock transport that raises HTTPX timeout exception"""
     raise httpx.TimeoutException("timed out", request=request)
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page():
     async with httpx.AsyncClient(
@@ -37,6 +37,7 @@ async def test_fetch_page():
         assert response.text == "html page"
 
 
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_not_found():
     with pytest.raises(FetchError) as exc_info:
@@ -49,7 +50,7 @@ async def test_fetch_page_not_found():
             )
         assert exc_info.value.reason == FetchFailureReason.NOT_FOUND
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_rate_limited():
     with pytest.raises(FetchError) as exc_info:
@@ -62,7 +63,7 @@ async def test_fetch_page_rate_limited():
             )
         assert exc_info.value.reason == FetchFailureReason.RATE_LIMITED
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_forbidden():
     with pytest.raises(FetchError) as exc_info:
@@ -75,7 +76,7 @@ async def test_fetch_page_forbidden():
             )
         assert exc_info.value.reason == FetchFailureReason.FORBIDDEN
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_bad_request():
     with pytest.raises(FetchError) as exc_info:
@@ -88,7 +89,7 @@ async def test_fetch_page_bad_request():
             )
         assert exc_info.value.reason == FetchFailureReason.BAD_REQUEST
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_request_timeout():
     with pytest.raises(FetchError) as exc_info:
@@ -101,7 +102,7 @@ async def test_fetch_page_request_timeout():
             )
     assert exc_info.value.reason == FetchFailureReason.REQUEST_TIMEOUT
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_httpx_timeout():
     with pytest.raises(FetchError) as exc_info:
@@ -114,7 +115,7 @@ async def test_fetch_page_httpx_timeout():
             )
     assert exc_info.value.reason == FetchFailureReason.HTTPX_TIMEOUT
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_unknown():
     with pytest.raises(FetchError) as exc_info:
@@ -127,7 +128,7 @@ async def test_fetch_page_unknown():
             )
         assert exc_info.value.reason == FetchFailureReason.UNKNOWN
 
-
+@pytest.mark.fetcher
 @pytest.mark.asyncio
 async def test_fetch_page_wrong_error():
     with pytest.raises(FetchError) as exc_info:
